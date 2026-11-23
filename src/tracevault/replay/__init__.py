@@ -10,6 +10,10 @@ from tracevault.replay.boundaries import (
 )
 from tracevault.replay.engine import ReplayEngine, get_current_replay_engine
 from tracevault.replay.matcher import FixtureMatcher, FixtureMatchResult
+from tracevault.replay.regression import (
+    export_regression_fixture,
+    generate_pytest_regression,
+)
 
 __all__ = [
     "FixtureMatchResult",
@@ -20,4 +24,6 @@ __all__ = [
     "ModelBoundary",
     "ToolBoundary",
     "RetrievalBoundary",
+    "export_regression_fixture",
+    "generate_pytest_regression",
 ]
