@@ -15,6 +15,16 @@ from tracevault.capture import (
     trace_span,
     trace_tool,
 )
+from tracevault.replay import (
+    BoundaryExecutor,
+    FixtureMatcher,
+    FixtureMatchResult,
+    ModelBoundary,
+    ReplayEngine,
+    RetrievalBoundary,
+    ToolBoundary,
+    get_current_replay_engine,
+)
 from tracevault.schema import (
     DEFAULT_MAX_JSON_DEPTH,
     DEFAULT_MAX_TRACE_BYTES,
@@ -173,4 +183,13 @@ __all__ = [
     "trace_model",
     "trace_tool",
     "trace_retrieval",
+    # Replay & Boundaries
+    "FixtureMatchResult",
+    "FixtureMatcher",
+    "ReplayEngine",
+    "get_current_replay_engine",
+    "BoundaryExecutor",
+    "ModelBoundary",
+    "ToolBoundary",
+    "RetrievalBoundary",
 ]
