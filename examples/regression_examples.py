@@ -76,7 +76,8 @@ def run_regression_workflow_example() -> None:
                 message_contains="timed out",
             )
             print(
-                f"1. Captured & froze failing trace {failing_trace.trace_id} ({recorded_err.error_type})"
+                f"1. Captured & froze failing trace {failing_trace.trace_id} "
+                f"({recorded_err.error_type})"
             )
 
             # 2. Fork the trace with a deterministic fixture override simulating the fix.
