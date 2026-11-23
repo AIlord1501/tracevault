@@ -15,6 +15,15 @@ from tracevault.capture import (
     trace_span,
     trace_tool,
 )
+from tracevault.diff import (
+    DEFAULT_SEVERITY_MAP,
+    DiffEngine,
+    diff_traces,
+    find_earliest_divergence,
+    format_diff_json,
+    format_diff_report,
+    render_diff_rich,
+)
 from tracevault.replay import (
     BoundaryExecutor,
     FixtureMatcher,
@@ -192,4 +201,12 @@ __all__ = [
     "ModelBoundary",
     "ToolBoundary",
     "RetrievalBoundary",
+    # Diff & Divergence Analysis
+    "DEFAULT_SEVERITY_MAP",
+    "DiffEngine",
+    "diff_traces",
+    "find_earliest_divergence",
+    "format_diff_json",
+    "format_diff_report",
+    "render_diff_rich",
 ]
