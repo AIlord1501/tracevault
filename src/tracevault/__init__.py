@@ -2,6 +2,19 @@
 
 from __future__ import annotations
 
+from tracevault.capture import (
+    CaptureConfig,
+    CaptureSession,
+    acapture,
+    capture,
+    get_current_run_id,
+    get_current_session,
+    get_current_span_id,
+    trace_model,
+    trace_retrieval,
+    trace_span,
+    trace_tool,
+)
 from tracevault.schema import (
     DEFAULT_MAX_JSON_DEPTH,
     DEFAULT_MAX_TRACE_BYTES,
@@ -148,4 +161,16 @@ __all__ = [
     "TraceStore",
     "TraceSummary",
     "TraceQuery",
+    # Capture & Instrumentation
+    "CaptureConfig",
+    "CaptureSession",
+    "capture",
+    "acapture",
+    "get_current_session",
+    "get_current_span_id",
+    "get_current_run_id",
+    "trace_span",
+    "trace_model",
+    "trace_tool",
+    "trace_retrieval",
 ]
