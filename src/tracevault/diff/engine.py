@@ -846,6 +846,28 @@ def _compare_matched_events(
     }:
         b_payload = {k: v for k, v in b_payload.items() if k not in {"run_id", "span_id"}}
         c_payload = {k: v for k, v in c_payload.items() if k not in {"run_id", "span_id"}}
+    elif b_event.event_type == EventKind.TOOL_CALL and c_event.event_type == EventKind.TOOL_CALL:
+        if "call_id" in b_payload and b_payload["call_id"] is None and "call_id" not in c_payload:
+            b_payload = {k: v for k, v in b_payload.items() if k != "call_id"}
+        elif "call_id" in c_payload and c_payload["call_id"] is None and "call_id" not in b_payload:
+            c_payload = {k: v for k, v in c_payload.items() if k != "call_id"}
+    elif (
+        b_event.event_type == EventKind.TOOL_RESULT and c_event.event_type == EventKind.TOOL_RESULT
+    ):
+        b_is_env = (
+            set(b_payload.keys()) == {"tool_name", "call_id", "result", "is_error"}
+            and b_payload.get("is_error") is False
+            and isinstance(b_payload.get("result"), dict)
+        )
+        c_is_env = (
+            set(c_payload.keys()) == {"tool_name", "call_id", "result", "is_error"}
+            and c_payload.get("is_error") is False
+            and isinstance(c_payload.get("result"), dict)
+        )
+        if b_is_env and not c_is_env:
+            b_payload = b_payload["result"]
+        elif c_is_env and not b_is_env:
+            c_payload = c_payload["result"]
     collector.diff_values(
         b_payload,
         c_payload,

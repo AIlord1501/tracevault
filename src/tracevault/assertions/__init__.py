@@ -1,0 +1,73 @@
+"""Public assertion API for TraceVault traces, replays, and structural diffs."""
+
+from __future__ import annotations
+
+from tracevault.assertions.diff import (
+    assert_diff_matches_expectations,
+    assert_no_breaking_diffs,
+    assert_traces_equivalent,
+)
+from tracevault.assertions.replay import (
+    assert_all_fixtures_matched,
+    assert_no_live_calls,
+    assert_replay_clean,
+    assert_replay_succeeded,
+)
+from tracevault.assertions.trace import (
+    TraceAssertions,
+    assert_agent_transition,
+    assert_error_recorded,
+    assert_event_absent,
+    assert_event_exists,
+    assert_event_order,
+    assert_model_called,
+    assert_model_output,
+    assert_no_errors,
+    assert_no_secrets_leaked,
+    assert_retrieval_results,
+    assert_run_output,
+    assert_run_status,
+    assert_run_succeeded,
+    assert_span_duration_under,
+    assert_span_exists,
+    assert_span_status,
+    assert_state_change,
+    assert_tool_called,
+    assert_tool_not_called,
+    assert_tool_output,
+    assert_trace_valid,
+    expect_trace,
+)
+
+__all__ = [
+    "TraceAssertions",
+    "assert_agent_transition",
+    "assert_all_fixtures_matched",
+    "assert_diff_matches_expectations",
+    "assert_error_recorded",
+    "assert_event_absent",
+    "assert_event_exists",
+    "assert_event_order",
+    "assert_model_called",
+    "assert_model_output",
+    "assert_no_breaking_diffs",
+    "assert_no_errors",
+    "assert_no_live_calls",
+    "assert_no_secrets_leaked",
+    "assert_replay_clean",
+    "assert_replay_succeeded",
+    "assert_retrieval_results",
+    "assert_run_output",
+    "assert_run_status",
+    "assert_run_succeeded",
+    "assert_span_duration_under",
+    "assert_span_exists",
+    "assert_span_status",
+    "assert_state_change",
+    "assert_tool_called",
+    "assert_tool_not_called",
+    "assert_tool_output",
+    "assert_trace_valid",
+    "assert_traces_equivalent",
+    "expect_trace",
+]
