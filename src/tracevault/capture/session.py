@@ -310,11 +310,11 @@ class CaptureSession:
         return self.__exit__(exc_type, exc_val, exc_tb)
 
     def _prepare_value(self, value: Any) -> Any:
+        validate_json_safe(value)
         if self._redact:
             processed = redact_data(value, self._redaction_config)
             validate_json_safe(processed)
             return processed
-        validate_json_safe(value)
         return copy.deepcopy(value)
 
     def _prepare_dict(self, data: dict[str, Any] | None) -> dict[str, Any]:

@@ -19,20 +19,51 @@ P = ParamSpec("P")
 R = TypeVar("R")
 
 
-def _safe_serialize(value: Any) -> Any:
+def _safe_serialize(
+    value: Any,
+    *,
+    _depth: int = 0,
+    _active: set[int] | None = None,
+    _max_depth: int = 32,
+) -> Any:
     """Convert arbitrary Python values into JSON-safe structures for decorator capture."""
     if value is None or isinstance(value, (bool, int, str)):
         return value
     if isinstance(value, float):
         return value if math.isfinite(value) else str(value)
+    if _depth >= _max_depth:
+        return "<max-depth-exceeded>"
     if isinstance(value, Enum):
-        return _safe_serialize(value.value)
+        return _safe_serialize(value.value, _depth=_depth + 1, _active=_active)
     if isinstance(value, BaseModel):
-        return _safe_serialize(value.model_dump(mode="json"))
+        return _safe_serialize(
+            value.model_dump(mode="json"),
+            _depth=_depth + 1,
+            _active=_active,
+        )
     if isinstance(value, dict):
-        return {str(k): _safe_serialize(v) for k, v in value.items()}
+        active = _active if _active is not None else set()
+        obj_id = id(value)
+        if obj_id in active:
+            return "<circular-reference>"
+        active.add(obj_id)
+        try:
+            return {
+                str(k): _safe_serialize(v, _depth=_depth + 1, _active=active)
+                for k, v in value.items()
+            }
+        finally:
+            active.discard(obj_id)
     if isinstance(value, (list, tuple)):
-        return [_safe_serialize(item) for item in value]
+        active = _active if _active is not None else set()
+        obj_id = id(value)
+        if obj_id in active:
+            return "<circular-reference>"
+        active.add(obj_id)
+        try:
+            return [_safe_serialize(item, _depth=_depth + 1, _active=active) for item in value]
+        finally:
+            active.discard(obj_id)
     return repr(value)
 
 
