@@ -41,6 +41,9 @@ dev = [
 [project.scripts]
 tracevault = "tracevault.cli.app:app"
 
+[project.entry-points."pytest11"]
+tracevault = "tracevault.pytest_plugin.plugin"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/tracevault"]
 
